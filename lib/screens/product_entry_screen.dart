@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_application_1/screens/log_screen.dart';
 
 class ProductEntryScreen extends StatefulWidget {
   final String? product;
@@ -62,9 +61,9 @@ class _ProductEntryScreenState extends State<ProductEntryScreen> {
 
       // Log the action
       if (widget.product == null) {
-        _addLog('Add', _nextId.toString());
+        _addLog('Add', productName, quantity);
       } else {
-        _addLog('Edit', _nextId.toString());
+        _addLog('Edit', productName, quantity);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -73,13 +72,16 @@ class _ProductEntryScreenState extends State<ProductEntryScreen> {
     }
   }
 
-  Future<void> _addLog(String action, String id) async {
+  Future<void> _addLog(String action, String productName, int quantity) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> logs = prefs.getStringList('logs') ?? [];
 
-    final String log = '${DateTime.now().toString()} | $action | $id';
-    logs.add(log);
-    await prefs.setStringList('logs', logs);
+    final String log =
+        '$action | $productName | $quantity | ${DateTime.now().toString()}';
+    if (!logs.contains(log)) {
+      logs.add(log);
+      await prefs.setStringList('logs', logs);
+    }
   }
 
   @override

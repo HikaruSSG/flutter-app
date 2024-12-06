@@ -22,8 +22,10 @@ class _LogScreenState extends State<LogScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> logs = prefs.getStringList('logs') ?? [];
 
-    logs.add(log);
-    await prefs.setStringList('logs', logs);
+    if (!logs.contains(log)) {
+      logs.add(log);
+      await prefs.setStringList('logs', logs);
+    }
 
     setState(() {
       _logs = logs;

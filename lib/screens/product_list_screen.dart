@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/screens/product_entry_screen.dart';
-import 'package:flutter_application_1/screens/log_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   @override
@@ -32,7 +31,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
             setState(() {
               _products[index] = updatedProduct;
             });
-            _addLog('Edit', _products[index].split(',')[0]);
+            final List<String> productDetails = _products[index].split(',');
+            final String productName = productDetails[1];
+            final int quantity = int.parse(productDetails[2]);
+            _addLog('Edit', productName, quantity);
           },
         ),
       ),
@@ -44,21 +46,29 @@ class _ProductListScreenState extends State<ProductListScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> products = prefs.getStringList('products') ?? [];
 
+    final List<String> productDetails = products[index].split(',');
+    final String productName = productDetails[1];
+    final int quantity = int.parse(productDetails[2]);
+
     setState(() {
       products.removeAt(index);
       prefs.setStringList('products', products);
       _products = products;
     });
-    _addLog('Delete', _products[index].split(',')[0]);
+
+    _addLog('Delete', productName, quantity);
   }
 
-  Future<void> _addLog(String action, String id) async {
+  Future<void> _addLog(String action, String productName, int quantity) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> logs = prefs.getStringList('logs') ?? [];
 
-    final String log = '${DateTime.now().toString()} | $action | $id';
-    logs.add(log);
-    await prefs.setStringList('logs', logs);
+    final String log =
+        '$action | $productName | $quantity | ${DateTime.now().toString()}';
+    if (!logs.contains(log)) {
+      logs.add(log);
+      await prefs.setStringList('logs', logs);
+    }
   }
 
   @override
