@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/screens/product_entry_screen.dart';
+import 'package:flutter_application_1/screens/log_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   @override
@@ -82,6 +83,24 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Product List'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (String result) {
+              if (result == 'View Logs') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogScreen()),
+                );
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'View Logs',
+                child: Text('View Logs'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: _products.isEmpty
           ? Center(child: Text('No products found.'))
