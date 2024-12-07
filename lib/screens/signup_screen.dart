@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'login_screen.dart'; // Import the login screen
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -73,7 +74,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       'https://flutter-api-sd0r.onrender.com/api/auth/local/register'),
                   headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer Strapi Tokken',
+                    'Authorization':
+                        'Bearer a20bd0cff00f48c31b0ca158c3951dcd9654a0a0935158985d624c57e5a42930f924362ff452255a096294994509ac63bba8f5bc19cce4f248d4a71328583c08dd9fb35899855b0ee830d8125113a585d4c7c089f824cb4f4e58204f6d8de97eb7472ca02fe9f1aa346cfd316caada77e278cc6b0aae850cfc8a29cca80e63a1',
                   },
                   body: jsonEncode({
                     'username': _userController.text,
@@ -104,7 +106,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text('Already have an account?'),
                 TextButton(
                   onPressed: () {
-                    // TODO: Navigate to login screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
                   },
                   child: Text('Login', style: TextStyle(color: Colors.blue)),
                 ),
