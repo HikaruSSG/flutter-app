@@ -29,9 +29,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     setState(() {
       _isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
       if (!_isLoggedIn) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => BottomNavigationMenu()),
-        );
+        // Navigator.of(context).pushReplacement(
+        //   MaterialPageRoute(builder: (context) => BottomNavigationMenu()),
+        // );
       }
     });
   }
@@ -72,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => ProductEntryScreen()),

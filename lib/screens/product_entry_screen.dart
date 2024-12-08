@@ -89,6 +89,7 @@ class _ProductEntryScreenState extends State<ProductEntryScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black, // Set AppBar background to black
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text('Pantry CRUD App',
             style: Theme.of(context).textTheme.titleLarge),
       ),
