@@ -88,20 +88,28 @@ class _ProductEntryScreenState extends State<ProductEntryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Entry'),
+        backgroundColor: Colors.black, // Set AppBar background to black
+        title: Text('Pantry CRUD App',
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            TextField(
-              controller: _productNameController,
-              decoration: InputDecoration(labelText: 'Product Name'),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _productNameController,
+                decoration: InputDecoration(labelText: 'Product Name'),
+              ),
             ),
-            TextField(
-              controller: _quantityController,
-              decoration: InputDecoration(labelText: 'Quantity'),
-              keyboardType: TextInputType.number,
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _quantityController,
+                decoration: InputDecoration(labelText: 'Quantity'),
+                keyboardType: TextInputType.number,
+              ),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(

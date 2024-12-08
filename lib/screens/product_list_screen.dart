@@ -82,7 +82,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product List'),
+        backgroundColor: Colors.black, // Set AppBar background to black
+        title: Text('Pantry CRUD App',
+            style: Theme.of(context).textTheme.titleLarge),
         actions: [
           PopupMenuButton<String>(
             onSelected: (String result) {
@@ -112,31 +114,38 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 final String productName = productDetails[1];
                 final int quantity = int.parse(productDetails[2]);
 
-                return ListTile(
-                  title: Text(productName),
-                  subtitle: Text('Quantity: $quantity'),
-                  trailing: Text('ID: $id'),
-                  // Add a PopupMenuButton for Edit and Delete actions
-                  leading: PopupMenuButton<String>(
-                    onSelected: (String result) {
-                      if (result == 'Edit') {
-                        _editProduct(index);
-                      } else if (result == 'Delete') {
-                        _deleteProduct(index);
-                      }
-                    },
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'Edit',
-                        child: Text('Edit'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Delete',
-                        child: Text('Delete'),
-                      ),
-                    ],
-                    icon: Icon(Icons.more_vert),
+                return Container(
+                  color: Colors.grey[200], // Set the background color here
+                  child: ListTile(
+                    title: Text(productName,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18)),
+                    subtitle: Text('Quantity: $quantity'),
+                    trailing: Text('ID: $id'),
+                    // Add a PopupMenuButton for Edit and Delete actions
+                    leading: PopupMenuButton<String>(
+                      onSelected: (String result) {
+                        if (result == 'Edit') {
+                          _editProduct(index);
+                        } else if (result == 'Delete') {
+                          _deleteProduct(index);
+                        }
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: 'Edit',
+                          child: Text('Edit'),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Delete',
+                          child: Text('Delete'),
+                        ),
+                      ],
+                      icon: Icon(Icons.more_vert),
+                    ),
                   ),
                 );
               },

@@ -22,6 +22,9 @@ class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black, // Set background color to black
+        selectedItemColor: Colors.white, // Set selected icon color to white
+        unselectedItemColor: Colors.white, // Set unselected icon color to white
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -29,14 +32,11 @@ class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
           });
         },
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Welcome'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.blue), label: 'Welcome'),
+              icon: Icon(Icons.list), label: 'Product List'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.list, color: Colors.blue),
-              label: 'Product List'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add, color: Colors.blue),
-              label: 'Product Entry'),
+              icon: Icon(Icons.add), label: 'Product Entry'),
         ],
       ),
     );

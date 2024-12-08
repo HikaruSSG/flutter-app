@@ -44,7 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: _userController,
                 decoration: InputDecoration(
                   labelText: 'User',
-                  border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 10),
@@ -52,7 +51,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 10),
@@ -61,7 +59,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 10),
@@ -70,7 +67,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
-                  border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(height: 20),
@@ -100,11 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print('Error creating user');
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                ),
-                child: Text('Sign Up', style: TextStyle(color: Colors.white)),
+                child: Text('Sign Up'),
               ),
             ],
           ),

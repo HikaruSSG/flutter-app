@@ -38,89 +38,59 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => BottomNavigationMenu()),
-        );
-        return false;
-      },
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.grey[300],
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundImage: AssetImage('assets/images/profile.png'),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black, // Set AppBar background to black
+        title: Text('Pantry CRUD App',
+            style: Theme.of(context).textTheme.titleLarge),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: Theme.of(context).primaryColorLight,
+                child: CircleAvatar(
+                  radius: 55,
+                  backgroundImage: AssetImage('assets/images/profile.png'),
                 ),
-                SizedBox(height: 30),
-                Text(
-                  'Welcome, $_username!',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
-                SizedBox(height: 15),
-                Text(
-                  'We are excited to have you on board. Explore and enjoy our services.',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey[600],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProductEntryScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text('Add Items'),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text('Login'),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 30),
+              Text(
+                'Welcome, $_username!',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              SizedBox(height: 15),
+              Text(
+                'Stock your foods with your personal pantry app',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductEntryScreen()),
+                  );
+                },
+                child: Text('Add Items'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Text('Login'),
+              ),
+            ],
           ),
         ),
       ),

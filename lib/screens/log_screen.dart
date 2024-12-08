@@ -42,7 +42,9 @@ class _LogScreenState extends State<LogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log Screen'),
+        backgroundColor: Colors.black, // Set AppBar background to black
+        title: Text('Pantry CRUD App',
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       body: _logs.isEmpty
           ? Center(child: Text('No logs found.'))
@@ -50,7 +52,8 @@ class _LogScreenState extends State<LogScreen> {
               itemCount: _logs.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(_logs[index]),
+                  title:
+                      Text(_logs[index], style: TextStyle(color: Colors.white)),
                 );
               },
             ),
