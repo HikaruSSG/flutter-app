@@ -24,7 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
         await _authService.login(
             _usernameController.text, _passwordController.text);
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  WelcomeScreen(username: _usernameController.text)),
         );
       } catch (e) {
         // Remove the error message display

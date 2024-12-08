@@ -5,6 +5,10 @@ import 'package:flutter_application_1/screens/product_entry_screen.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  final String? username;
+
+  const WelcomeScreen({Key? key, this.username}) : super(key: key);
+
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -16,6 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
+    _username = widget.username ?? '';
     _checkLoginStatus();
   }
 
@@ -23,7 +28,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-      _username = prefs.getString('user') ?? '';
       if (!_isLoggedIn) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => BottomNavigationMenu()),
