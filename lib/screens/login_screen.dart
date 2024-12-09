@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         await _authService.login(
             _usernameController.text, _passwordController.text);
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
           MaterialPageRoute(
               builder: (context) =>
                   WelcomeScreen(username: _usernameController.text)),

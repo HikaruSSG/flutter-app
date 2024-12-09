@@ -23,7 +23,7 @@ class AuthService {
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user', jsonData['user']);
+      await prefs.setString('user', jsonEncode(jsonData['user']));
       await prefs.setString('token', jsonData['jwt']);
     } else {
       final errorMessage = jsonDecode(response.body)['error']['message'];
@@ -57,5 +57,16 @@ class AuthService {
     }
 
     return response;
+  }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('user') && prefs.containsKey('token');
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user');
+    await prefs.remove('token');
   }
 }
