@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../auth_service.dart';
+import 'welcome_screen.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'welcome_screen.dart'; // Import the welcome screen
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -72,43 +72,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
+                  if (_passwordController.text !=
+                      _confirmPasswordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Passwords do not match'),
+                      ),
+                    );
+                    return;
+                  }
                   try {
-                    final response = await http.post(
-                      Uri.parse(
-                          'https://flutter-api-sd0r.onrender.com/api/auth/local/register'),
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: jsonEncode({
-                        'username': _userController.text,
-                        'email': _emailController.text,
-                        'password': _passwordController.text,
-                      }),
+                    final http.Response response = await AuthService().signup(
+                      _userController.text,
+                      _emailController.text,
+                      _passwordController.text,
                     );
 
-                    print('Response status: ${response.statusCode}');
-                    print('Response body: ${response.body}');
+                    // Message the HTTP response
+                    print('HTTP Response: ${response.body}');
 
                     if (response.statusCode == 200) {
-                      print('User created successfully');
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('User created successfully'),
+                          content: Text(
+                              'User created successfully: ${response.statusCode}'),
                         ),
                       );
                     } else {
-                      print('Error creating user');
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Error creating user'),
+                          content: Text(
+                              'Failed to create user: ${response.statusCode}'),
                         ),
                       );
                     }
+
+                    // Clear the text fields
+                    _userController.clear();
+                    _emailController.clear();
+                    _passwordController.clear();
+                    _confirmPasswordController.clear();
                   } catch (e) {
-                    print('Error: $e');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Network error or API not reachable'),
+                        content: Text('Failed to create user: ${e.toString()}'),
                       ),
                     );
                   }

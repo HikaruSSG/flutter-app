@@ -30,4 +30,32 @@ class AuthService {
       throw Exception('Failed to login: $errorMessage');
     }
   }
+
+  Future<http.Response> signup(
+      String username, String email, String password) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/api/auth/local/register'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $_token',
+      },
+      body: jsonEncode({
+        'username': username,
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', jsonEncode(jsonData['user']));
+      await prefs.setString('token', jsonData['jwt']);
+    } else {
+      final errorMessage = jsonDecode(response.body)['error']['message'];
+      throw Exception('Failed to sign up: $errorMessage');
+    }
+
+    return response;
+  }
 }
