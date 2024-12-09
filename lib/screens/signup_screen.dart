@@ -72,28 +72,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  final response = await http.post(
-                    Uri.parse(
-                        'https://flutter-api-sd0r.onrender.com/api/auth/local/register'),
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization':
-                          'Bearer a20bd0cff00f48c31b0ca158c3951dcd9654a0a0935158985d624c57e5a42930f924362ff452255a096294994509ac63bba8f5bc19cce4f248d4a71328583c08dd9fb35899855b0ee830d8125113a585d4c7c089f824cb4f4e58204f6d8de97eb7472ca02fe9f1aa346cfd316caada77e278cc6b0aae850cfc8a29cca80e63a1',
-                    },
-                    body: jsonEncode({
-                      'username': _userController.text,
-                      'email': _emailController.text,
-                      'password': _passwordController.text,
-                    }),
-                  );
+                  try {
+                    final response = await http.post(
+                      Uri.parse(
+                          'https://flutter-api-sd0r.onrender.com/api/auth/local/register'),
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: jsonEncode({
+                        'username': _userController.text,
+                        'email': _emailController.text,
+                        'password': _passwordController.text,
+                      }),
+                    );
 
-                  print('Response status: ${response.statusCode}');
-                  print('Response body: ${response.body}');
+                    print('Response status: ${response.statusCode}');
+                    print('Response body: ${response.body}');
 
-                  if (response.statusCode == 200) {
-                    print('User created successfully');
-                  } else {
-                    print('Error creating user');
+                    if (response.statusCode == 200) {
+                      print('User created successfully');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('User created successfully'),
+                        ),
+                      );
+                    } else {
+                      print('Error creating user');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error creating user'),
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    print('Error: $e');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Network error or API not reachable'),
+                      ),
+                    );
                   }
                 },
                 child: Text('Sign Up'),
