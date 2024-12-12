@@ -56,9 +56,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   Future<void> _logout() async {
     await _authService.logout();
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    _refreshUI();
+  }
+
+  void _refreshUI() {
+    setState(() {
+      _checkLoginStatus();
+      _loadUsername();
+    });
   }
 
   @override
@@ -115,7 +120,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
+                              builder: (context) => LoginScreen(
+                                    onLoginSuccess: _refreshUI,
+                                  )),
                         );
                       },
                       child: Text('Login'),

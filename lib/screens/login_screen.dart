@@ -5,7 +5,9 @@ import 'welcome_screen.dart'; // Import the welcome screen
 import '../auth_service.dart'; // Import the auth service using a relative path
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final Function? onLoginSuccess;
+
+  const LoginScreen({Key? key, this.onLoginSuccess}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -23,11 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         await _authService.login(
             _usernameController.text, _passwordController.text);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) =>
-                  WelcomeScreen(username: _usernameController.text)),
-        );
+        Navigator.of(context).pop(); // Trigger the back action
+        if (widget.onLoginSuccess != null) {
+          widget.onLoginSuccess!();
+        }
       } catch (e) {
         // Remove the error message display
       }
