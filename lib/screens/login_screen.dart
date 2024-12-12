@@ -3,6 +3,7 @@ import 'signup_screen.dart'; // Import the sign up screen
 import 'welcome_screen.dart'; // Import the welcome screen
 // Import shared_preferences
 import '../auth_service.dart'; // Import the auth service using a relative path
+import '../widgets/bottom_navigation_menu.dart'; // Import the bottom navigation menu
 
 class LoginScreen extends StatefulWidget {
   final Function? onLoginSuccess;
@@ -25,7 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         await _authService.login(
             _usernameController.text, _passwordController.text);
-        Navigator.of(context).pop(); // Trigger the back action
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+              builder: (context) => BottomNavigationMenu(initialIndex: 1)),
+        );
         if (widget.onLoginSuccess != null) {
           widget.onLoginSuccess!();
         }
@@ -91,10 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               CircleAvatar(
                 radius: 50,
-                backgroundColor: Colors.blueGrey[200],
+                backgroundColor: Theme.of(context).primaryColorLight,
                 child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.pinkAccent,
+                  radius: 45,
+                  backgroundImage: AssetImage('assets/hikaru.png'),
                 ),
               ),
               const SizedBox(height: 20),

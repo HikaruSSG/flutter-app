@@ -88,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     backgroundColor: Theme.of(context).primaryColorLight,
                     child: CircleAvatar(
                       radius: 55,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
+                      backgroundImage: AssetImage('assets/hikaru.png'),
                     ),
                   ),
                   SizedBox(height: 30),

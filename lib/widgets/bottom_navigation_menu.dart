@@ -4,6 +4,10 @@ import '../screens/product_list_screen.dart';
 import '../screens/product_entry_screen.dart';
 
 class BottomNavigationMenu extends StatefulWidget {
+  final int? initialIndex;
+
+  BottomNavigationMenu({this.initialIndex});
+
   @override
   _BottomNavigationMenuState createState() => _BottomNavigationMenuState();
 }
@@ -16,6 +20,14 @@ class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
     ProductListScreen(),
     ProductEntryScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialIndex != null) {
+      _currentIndex = widget.initialIndex!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

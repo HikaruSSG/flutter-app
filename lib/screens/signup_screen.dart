@@ -36,10 +36,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.grey[300],
+              backgroundColor: Theme.of(context).primaryColorLight,
               child: CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.lightBlue[100],
+                radius: 45,
+                backgroundImage: AssetImage('assets/hikaru.png'),
               ),
             ),
             SizedBox(height: 20),
