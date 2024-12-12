@@ -30,7 +30,45 @@ class _LoginScreenState extends State<LoginScreen> {
           widget.onLoginSuccess!();
         }
       } catch (e) {
-        // Remove the error message display
+        if (e is Exception) {
+          if (e.toString().contains('Failed to login')) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Login Failed'),
+                  content: Text('Your user name or password is incorrect.'),
+                  actions: [
+                    TextButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Error'),
+                  content: Text(e.toString()),
+                  actions: [
+                    TextButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        }
       }
     }
   }
@@ -41,6 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white),
+        title: Text('Pantry CRUD App',
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,13 +139,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _login,
                 child: const Text('Login'),
               ),
-              TextButton(
+              const SizedBox(height: 10),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => SignUpScreen()),
                   );
                 },
-                child: const Text('Don\'t have an account? Sign up'),
+                child: const Text('Sign up'),
               ),
             ],
           ),

@@ -93,7 +93,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   SizedBox(height: 30),
                   Text(
-                    'Welcome, ${_username.toUpperCase()}!',
+                    _isLoggedIn
+                        ? 'Welcome ${_username.toUpperCase()}!'
+                        : 'Welcome${_username.toUpperCase()}!',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: 15),
